@@ -21,3 +21,8 @@ console.log(listings);
 Methods: `search`, `vehicle`, `history`, `related`, `filters`, `locations`, `shipping`, `usage`. All return the JSON body as returned by the API; response schemas are documented in [OpenAPI](https://apibara.tech/openapi/v1.json).
 
 Keep API keys on the server. Auction photos and data are subject to their own applicable rights and conditions.
+
+
+## 0.2.0 source (release pending)
+
+The unreleased source adds `reserve`, `changes`, `saleDocuments`, `soldPrices`, `shippingToPort`, `urlToDetails`, and `liveSession`. `liveSession` creates a session only; connecting to the WebSocket is a separate step. All filter keys are forwarded as documented in OpenAPI. The latest published npm version must be checked in npm Registry before installing.
