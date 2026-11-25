@@ -1,0 +1,27 @@
+name: Tag PHP SDK v0.1.0
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'php/.tag-release-v0.1.0'
+permissions:
+  contents: write
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Create stable release tag (only once)
+        run: |
+          set -euo pipefail
+          git fetch --tags
+          if git rev-parse -q --verify "refs/tags/v0.1.0" >/dev/null; then
+            echo "v0.1.0 already exists; refusing to overwrite it"
+            exit 1
+          fi
+          git config user.name "apibara-release-bot"
+          git config user.email "admin@apibara.tech"
+          git tag -a v0.1.0 -m "PHP SDK stable release v0.1.0"
+          git push origin refs/tags/v0.1.0
