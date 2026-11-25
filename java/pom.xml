@@ -1,0 +1,7 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion><groupId>tech.apibara</groupId><artifactId>vehicle-auction-api</artifactId><version>0.1.0</version><name>Apibara Vehicle Auction API</name><description>Copart and IAAI auction data client</description><url>https://apibara.tech</url>
+<licenses><license><name>MIT</name><url>https://opensource.org/licenses/MIT</url></license></licenses>
+<developers><developer><name>Apibara.tech</name></developer></developers>
+<scm><url>https://github.com/apibaratech/vehicle-auction-sdk</url><connection>scm:git:https://github.com/apibaratech/vehicle-auction-sdk.git</connection></scm>
+<properties><maven.compiler.release>11</maven.compiler.release><project.build.sourceEncoding>UTF-8</project.build.sourceEncoding></properties>
+</project>

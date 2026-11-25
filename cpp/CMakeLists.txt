@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.16)
+project(apibara_vehicle_auction VERSION 0.1.0 LANGUAGES CXX)
+add_library(apibara_vehicle_auction INTERFACE)
+target_include_directories(apibara_vehicle_auction INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_features(apibara_vehicle_auction INTERFACE cxx_std_17)
+find_package(CURL REQUIRED)
+target_link_libraries(apibara_vehicle_auction INTERFACE CURL::libcurl)

@@ -1,0 +1,65 @@
+name: Multi-language SDK CI
+on:
+  push:
+    paths:
+      - 'php/**'
+      - 'go/**'
+      - 'ruby/**'
+      - 'cpp/**'
+      - 'dotnet/**'
+      - 'java/**'
+      - 'rust/**'
+      - '.github/workflows/sdk-multilang-ci.yml'
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  php:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: php php/test.php
+  ruby:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+      - run: ruby ruby/test.rb && cd ruby && gem build apibara-vehicle-auction.gemspec
+  go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+      - run: cd go && go test ./...
+  dotnet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - run: dotnet build dotnet/Apibara.VehicleAuction/Apibara.VehicleAuction.csproj -c Release
+  java:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - run: cd java && mvn -B package
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cd rust && cargo test
+  cpp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: printf '#include "cpp/include/apibara/client.hpp"\nint main(){apibara::Client client("test");return 0;}\n' | g++ -std=c++17 -x c++ -fsyntax-only -I. -

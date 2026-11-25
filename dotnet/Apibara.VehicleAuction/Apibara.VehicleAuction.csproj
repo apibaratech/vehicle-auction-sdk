@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup>
+<TargetFramework>net8.0</TargetFramework><Nullable>enable</Nullable><ImplicitUsings>enable</ImplicitUsings>
+<PackageId>Apibara.VehicleAuction</PackageId><Version>0.1.0</Version><Authors>Apibara.tech</Authors>
+<Description>Vehicle Auction API SDK for Copart and IAAI data</Description>
+<PackageLicenseExpression>MIT</PackageLicenseExpression>
+<RepositoryUrl>https://github.com/apibaratech/vehicle-auction-sdk</RepositoryUrl>
+</PropertyGroup>
+</Project>

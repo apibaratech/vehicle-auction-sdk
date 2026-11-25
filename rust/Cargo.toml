@@ -1,0 +1,11 @@
+[package]
+name = "apibara-vehicle-auction"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Apibara.tech Copart and IAAI Vehicle Auction API client"
+repository = "https://github.com/apibaratech/vehicle-auction-sdk"
+[dependencies]
+reqwest = { version = "0.12", features = ["json","rustls-tls"], default-features = false }
+serde_json = "1"
+tokio = { version = "1", features = ["rt","macros"], optional = true }
