@@ -1,7 +1,7 @@
 # SDK registry status
 Verified production npm package: `@apibara.tech/vehicle-auction-api@0.1.1`.
 Package source and starter clients exist in this repository.
-The following are source packages requiring build/release validation and registry account ownership before publication:
+Verified production Python package: `apibara-vehicle-auction@0.1.0` on PyPI, published via trusted GitHub Actions OIDC.\n\nThe following remain source packages requiring build/release validation and registry account ownership before publication:
 - Python: PyPI `apibara-vehicle-auction`
 - PHP: Packagist `apibara/vehicle-auction-api`
 - Go: GitHub module `github.com/apibaratech/vehicle-auction-sdk/go` (tag `go/v0.1.0` after tests)
