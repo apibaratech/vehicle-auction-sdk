@@ -1,6 +1,6 @@
 {
   "name": "@apibara.tech/vehicle-auction-api",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Official dependency-free JavaScript client for the Apibara.tech Copart and IAAI Vehicle Auction Data API",
   "type": "module",
   "main": "./src/index.js",
