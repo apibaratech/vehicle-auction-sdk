@@ -1,5 +1,9 @@
 name: Publish npm
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'npm/.release-trigger-0.2.0'
   workflow_dispatch:
     inputs:
       confirm:
@@ -11,7 +15,7 @@ permissions:
   id-token: write
 jobs:
   publish:
-    if: inputs.confirm == 'stage-npm'
+    if: github.event_name == 'push' || inputs.confirm == 'stage-npm'
     runs-on: ubuntu-latest
     defaults:
       run:
