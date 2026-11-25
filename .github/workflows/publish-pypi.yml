@@ -1,9 +1,5 @@
 name: Publish PyPI
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'python/.pypi-release-trigger-0.1.0'
   workflow_dispatch:
     inputs:
       confirm:
@@ -15,7 +11,7 @@ permissions:
   id-token: write
 jobs:
   publish:
-    if: github.event_name == 'push' || inputs.confirm == 'publish-pypi'
+    if: inputs.confirm == 'publish-pypi'
     runs-on: ubuntu-latest
     environment: pypi-release
     steps:
