@@ -16,11 +16,11 @@ class ApibaraVehicleAuctionClient:
     def search(self, **query):
         return self._get("/vehicles", query)
 
-    def vehicle(self, slug_vin: str):
-        return self._get(f"/vehicles/{quote(slug_vin, safe='')}")
+    def vehicle(self, slug_vin: str, **query):
+        return self._get(f"/vehicles/{quote(slug_vin, safe='')}", query)
 
-    def history(self, slug_vin: str):
-        return self._get(f"/vehicles/{quote(slug_vin, safe='')}/history")
+    def history(self, slug_vin: str, **query):
+        return self._get(f"/vehicles/{quote(slug_vin, safe='')}/history", query)
 
     def related(self, slug_vin: str, **query):
         return self._get(f"/vehicles/{quote(slug_vin, safe='')}/related", query)
@@ -34,10 +34,34 @@ class ApibaraVehicleAuctionClient:
     def shipping(self, slug_vin: str, **query):
         return self._get(f"/vehicles/{quote(slug_vin, safe='')}/shipping", query)
 
+    def reserve(self, slug_vin: str, **query):
+        return self._get(f"/vehicles/{quote(slug_vin, safe='')}/reserve", query)
+
+    def changes(self, **query):
+        return self._get("/changes", query)
+
+    def sale_documents(self, **query):
+        return self._get("/sale-documents", query)
+
+    def sold_prices(self, **query):
+        return self._get("/market/sold-prices", query)
+
+    def shipping_to_port(self, **query):
+        return self._get("/shipping/auction-to-port", query)
+
+    def url_to_details(self, **query):
+        return self._get("/vehicles/urltodetails", query)
+
+    def live_session(self):
+        return self._request("POST", "/live/v1/session")
+
     def usage(self):
         return self._get("/usage")
 
     def _get(self, path: str, query: dict | None = None):
+        return self._request("GET", path, query)
+
+    def _request(self, method: str, path: str, query: dict | None = None):
         query = {k: v for k, v in (query or {}).items() if v is not None}
         url = self.base_url + path
         if query:
@@ -46,7 +70,7 @@ class ApibaraVehicleAuctionClient:
         request = Request(
             url,
             headers={"Accept": "application/json", "X-API-Key": self.api_key},
-            method="GET",
+            method=method,
         )
 
         try:
