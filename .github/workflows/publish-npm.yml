@@ -6,14 +6,17 @@ on:
         description: 'Type publish-npm to confirm'
         required: true
         type: string
+  push:
+    branches: [main]
+    paths:
+      - 'npm/package.json'
 permissions:
   contents: read
   id-token: write
 jobs:
   publish:
-    if: inputs.confirm == 'publish-npm'
+    if: github.event_name == 'push' || inputs.confirm == 'publish-npm'
     runs-on: ubuntu-latest
-    environment: npm-release
     defaults:
       run:
         working-directory: npm
@@ -23,5 +26,7 @@ jobs:
         with:
           node-version: '24'
           registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
+      - run: npm --version
       - run: npm test
       - run: npm publish --access public
