@@ -1,0 +1,27 @@
+name: Publish npm
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type publish-npm to confirm'
+        required: true
+        type: string
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  publish:
+    if: inputs.confirm == 'publish-npm'
+    runs-on: ubuntu-latest
+    environment: npm-release
+    defaults:
+      run:
+        working-directory: npm
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+      - run: npm test
+      - run: npm publish --access public

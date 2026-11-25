@@ -1,0 +1,50 @@
+{
+  "name": "@apibara.tech/vehicle-auction-api",
+  "version": "0.1.0",
+  "description": "Official dependency-free JavaScript client for the Apibara.tech Copart and IAAI Vehicle Auction Data API",
+  "type": "module",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js",
+      "default": "./src/index.js"
+    }
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "pack:check": "npm pack --dry-run"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apibaratech/vehicle-auction-sdk.git",
+    "directory": "npm"
+  },
+  "homepage": "https://apibara.tech/en/products/vehicle-auction-data-api/docs",
+  "bugs": {
+    "url": "https://github.com/apibaratech/vehicle-auction-sdk/issues"
+  },
+  "keywords": [
+    "apibara",
+    "copart",
+    "iaai",
+    "vehicle-auction",
+    "vehicle-data",
+    "api",
+    "sdk"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}
