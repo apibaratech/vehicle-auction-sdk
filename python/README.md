@@ -2,7 +2,7 @@
 
 Python 3.10+ client for the [Apibara.tech Vehicle Auction Data API](https://apibara.tech/en/products/vehicle-auction-data-api/docs). Standard library only at runtime.
 
-**Release status:** source package prepared; PyPI publishing is pending Trusted Publisher setup. Once published, install with:
+**Published to PyPI:** version `0.1.0` via GitHub Actions OIDC Trusted Publishing. Install with:
 
 ```bash
 pip install apibara-vehicle-auction
