@@ -9,8 +9,8 @@ export class ApibaraVehicleAuctionClient {
   vehicle(identifier, query = {}) {
     return this.get(`/vehicles/${encodeURIComponent(identifier)}`, query);
   }
-  history(identifier) {
-    return this.get(`/vehicles/${encodeURIComponent(identifier)}/history`);
+  history(identifier, query = {}) {
+    return this.get(`/vehicles/${encodeURIComponent(identifier)}/history`, query);
   }
   related(identifier, query = {}) {
     return this.get(`/vehicles/${encodeURIComponent(identifier)}/related`, query);
@@ -20,9 +20,21 @@ export class ApibaraVehicleAuctionClient {
   shipping(identifier, query = {}) {
     return this.get(`/vehicles/${encodeURIComponent(identifier)}/shipping`, query);
   }
+  reserve(identifier, query = {}) {
+    return this.get(`/vehicles/${encodeURIComponent(identifier)}/reserve`, query);
+  }
+  changes(query = {}) { return this.get("/changes", query); }
+  saleDocuments(query = {}) { return this.get("/sale-documents", query); }
+  soldPrices(query = {}) { return this.get("/market/sold-prices", query); }
+  shippingToPort(query = {}) { return this.get("/shipping/auction-to-port", query); }
+  urlToDetails(query = {}) { return this.get("/vehicles/urltodetails", query); }
+  liveSession() { return this.request("POST", "/live/v1/session"); }
   usage() { return this.get("/usage"); }
 
-  async get(path, query = {}) {
+  get(path, query = {}) { return this.request("GET", path, query); }
+
+  async request(method, path, query = {}) {
+    if (!path.startsWith("/") || path.startsWith("//")) throw new Error("Invalid API path");
     const url = new URL(this.baseUrl + path);
     for (const [key, raw] of Object.entries(query)) {
       const values = Array.isArray(raw) ? raw : [raw];
@@ -34,6 +46,7 @@ export class ApibaraVehicleAuctionClient {
     }
 
     const response = await fetch(url, {
+      method,
       headers: {
         Accept: "application/json",
         "X-API-Key": this.apiKey,
