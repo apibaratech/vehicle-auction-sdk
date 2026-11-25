@@ -3,19 +3,15 @@ on:
   workflow_dispatch:
     inputs:
       confirm:
-        description: 'Type publish-npm to confirm'
+        description: 'Type stage-npm to confirm staging a release for 2FA approval'
         required: true
         type: string
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/publish-npm.yml'
 permissions:
   contents: read
   id-token: write
 jobs:
   publish:
-    if: github.event_name == 'push' || inputs.confirm == 'publish-npm'
+    if: inputs.confirm == 'stage-npm'
     runs-on: ubuntu-latest
     defaults:
       run:
