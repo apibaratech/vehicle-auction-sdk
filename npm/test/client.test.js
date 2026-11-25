@@ -41,3 +41,25 @@ test("reports HTTP failures", async (t) => {
   t.after(() => { globalThis.fetch = previous; });
   await assert.rejects(new ApibaraVehicleAuctionClient("test-secret").usage(), /Quota exceeded/);
 });
+
+test("new endpoints send expected paths, query filters and HTTP methods", async (t) => {
+  const previous = globalThis.fetch;
+  const calls = [];
+  globalThis.fetch = async (url, options) => {
+    calls.push({ url: new URL(url), options });
+    return { ok: true, json: async () => ({ success: true }) };
+  };
+  t.after(() => { globalThis.fetch = previous; });
+  const api = new ApibaraVehicleAuctionClient("test-secret");
+  await api.reserve("A/B", { include_events: 1 });
+  assert.equal(calls.at(-1).url.pathname, "/api/v1/vehicle-auction/vehicles/A%2FB/reserve");
+  assert.equal(calls.at(-1).url.searchParams.get("include_events"), "1");
+  await api.changes({ after: "cursor-1" });
+  assert.equal(calls.at(-1).url.searchParams.get("after"), "cursor-1");
+  await api.saleDocuments({ platform: "iaai" });
+  assert.equal(calls.at(-1).url.pathname, "/api/v1/vehicle-auction/sale-documents");
+  await api.soldPrices({ make: "BMW" });
+  assert.equal(calls.at(-1).url.pathname, "/api/v1/vehicle-auction/market/sold-prices");
+  await api.liveSession();
+  assert.equal(calls.at(-1).options.method, "POST");
+});
